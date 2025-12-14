@@ -10,6 +10,7 @@ const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
   const [stats, setStats] = useState(null);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [activeTab, setActiveTab] = useState('all');
   const [completionData, setCompletionData] = useState({
     totalAmount: '',
     adminMessage: ''
@@ -87,6 +88,14 @@ const AdminDashboard = () => {
     };
     return badges[status] || 'badge';
   };
+
+  const filteredOrders = orders.filter(order => {
+    if (activeTab === 'all') return true;
+    if (activeTab === 'upcoming') return order.status === 'pending';
+    if (activeTab === 'processing') return order.status === 'processing';
+    if (activeTab === 'completed') return order.status === 'completed';
+    return true;
+  });
 
   return (
     <>
@@ -199,14 +208,59 @@ const AdminDashboard = () => {
           <div className="bg-white/95 backdrop-blur-lg rounded-xl shadow-2xl p-4">
             <h2 className="text-xl font-bold mb-4 text-gray-800">All Orders</h2>
 
-            {orders.length === 0 ? (
+            {/* Order Tabs */}
+            <div className="flex gap-2 mb-4 border-b pb-2">
+              <button
+                onClick={() => setActiveTab('all')}
+                className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                  activeTab === 'all'
+                    ? 'text-white shadow-lg'
+                    : 'text-gray-600 hover:bg-gray-100'
+                }`}
+                style={activeTab === 'all' ? {background: 'linear-gradient(to right, #1E40AF, #1E3A8A)'} : {}}
+              >
+                All Orders ({orders.length})
+              </button>
+              <button
+                onClick={() => setActiveTab('upcoming')}
+                className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                  activeTab === 'upcoming'
+                    ? 'bg-amber-500 text-white shadow-lg'
+                    : 'text-gray-600 hover:bg-gray-100'
+                }`}
+              >
+                Upcoming ({orders.filter(o => o.status === 'pending').length})
+              </button>
+              <button
+                onClick={() => setActiveTab('processing')}
+                className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                  activeTab === 'processing'
+                    ? 'bg-blue-500 text-white shadow-lg'
+                    : 'text-gray-600 hover:bg-gray-100'
+                }`}
+              >
+                Processing ({orders.filter(o => o.status === 'processing').length})
+              </button>
+              <button
+                onClick={() => setActiveTab('completed')}
+                className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                  activeTab === 'completed'
+                    ? 'bg-emerald-500 text-white shadow-lg'
+                    : 'text-gray-600 hover:bg-gray-100'
+                }`}
+              >
+                Completed ({orders.filter(o => o.status === 'completed').length})
+              </button>
+            </div>
+
+            {filteredOrders.length === 0 ? (
               <div className="text-center py-12">
                 <Package size={64} className="mx-auto text-gray-300 mb-4" />
-                <p className="text-gray-500 text-lg">No orders yet</p>
+                <p className="text-gray-500 text-lg">No {activeTab === 'all' ? '' : activeTab} orders</p>
               </div>
             ) : (
               <div className="space-y-4">
-                {orders.map((order) => (
+                {filteredOrders.map((order) => (
                   <div key={order._id} className="border-2 rounded-xl p-4 hover:shadow-xl transition-all bg-white">
                     {/* Header Section */}
                     <div className="flex justify-between items-start mb-4 pb-3 border-b-2">
