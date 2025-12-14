@@ -116,19 +116,6 @@ const Register = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 font-semibold mb-2">Department</label>
-              <input
-                type="text"
-                name="department"
-                value={formData.department}
-                onChange={handleChange}
-                className="input-field"
-                placeholder="Computer Science"
-                required
-              />
-            </div>
-
-            <div className="mb-4">
               <label className="block text-gray-700 font-semibold mb-2">Role</label>
               <select
                 name="role"
@@ -155,18 +142,6 @@ const Register = () => {
               />
             </div>
 
-            <div className="mb-6">
-              <label className="block text-gray-700 font-semibold mb-2">Confirm Password</label>
-              <input
-                type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                className="input-field"
-                placeholder="••••••••"
-                required
-              />
-            </div>
 
             <button
               type="submit"
@@ -190,15 +165,6 @@ const Register = () => {
               Login here
             </Link>
           </p>
-
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <Link
-              to="/"
-              className="text-center block text-gray-600 hover:text-cyan-600 font-semibold"
-            >
-              ← Back to Home
-            </Link>
-          </div>
         </div>
       </div>
     </div>

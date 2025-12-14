@@ -29,6 +29,11 @@ const orderSchema = new mongoose.Schema({
     required: true,
     min: 1
   },
+  paperSize: {
+    type: String,
+    enum: ['a4', 'a3', 'letter', 'legal'],
+    default: 'a4'
+  },
   printSide: {
     type: String,
     enum: ['single', 'double'],
@@ -38,6 +43,16 @@ const orderSchema = new mongoose.Schema({
     type: String,
     enum: ['blackwhite', 'color'],
     required: true
+  },
+  binding: {
+    type: String,
+    enum: ['none', 'spiral', 'staple', 'tape'],
+    default: 'none'
+  },
+  urgency: {
+    type: String,
+    enum: ['urgent', 'lunch', 'evening', 'normal'],
+    default: 'normal'
   },
   additionalNotes: {
     type: String,

@@ -40,7 +40,15 @@ router.post('/', protect, upload.single('document'), async (req, res) => {
       return res.status(400).json({ message: 'Please upload a document' });
     }
 
-    const { numberOfCopies, printSide, printColor, additionalNotes } = req.body;
+    const { 
+      numberOfCopies, 
+      printSide, 
+      printColor, 
+      paperSize, 
+      binding, 
+      urgency, 
+      additionalNotes 
+    } = req.body;
 
     const order = await Order.create({
       user: req.user._id,
@@ -56,6 +64,9 @@ router.post('/', protect, upload.single('document'), async (req, res) => {
       numberOfCopies,
       printSide,
       printColor,
+      paperSize: paperSize || 'a4',
+      binding: binding || 'none',
+      urgency: urgency || 'normal',
       additionalNotes
     });
 

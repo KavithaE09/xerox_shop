@@ -182,15 +182,6 @@ const Login = () => {
               </Link>
             </p>
           )}
-
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <Link
-              to="/"
-              className="text-center block text-gray-600 font-semibold hover:text-blue-800"
-            >
-              ← Back to Home
-            </Link>
-          </div>
         </div>
       </div>
     </div>

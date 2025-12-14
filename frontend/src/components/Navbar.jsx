@@ -11,19 +11,48 @@ const Navbar = () => {
     navigate('/');
   };
 
+  // Don't show navbar anywhere - completely hide it
+  return null;
+
   return (
     <nav style={{backgroundColor: '#1E40AF'}} className="shadow-lg sticky top-0 z-50">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex justify-between items-center py-3">
+          {/* Logo/Brand */}
+          <Link to="/" className="flex items-center gap-2 text-white hover:text-blue-200 transition-colors">
+            <div className="bg-white/20 backdrop-blur-lg p-2 rounded-full">
+              <Printer size={24} />
+            </div>
+            <span className="font-bold text-lg hidden sm:block">FX College Xerox</span>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6 ml-auto">
             {!isAuthenticated ? (
               <>
-              
+                <Link
+                  to="/login"
+                  className="bg-white text-blue-700 px-6 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-all"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition-all"
+                >
+                  Register
+                </Link>
               </>
             ) : (
               <>
+                <Link
+                  to={isAdmin ? '/admin/dashboard' : '/dashboard'}
+                  className="text-white hover:text-blue-200 font-semibold transition-colors flex items-center gap-2"
+                >
+                  <FileText size={20} />
+                  Dashboard
+                </Link>
+
                 <div className="flex items-center gap-3 border-l border-blue-300 pl-6 ml-2">
                   <div className="flex items-center gap-2">
                     {isAdmin ? (
@@ -49,6 +78,13 @@ const Navbar = () => {
                     )}
                   </div>
                   
+                  <button
+                    onClick={handleLogout}
+                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-semibold transition-all flex items-center gap-2"
+                  >
+                    <LogOut size={18} />
+                    Logout
+                  </button>
                 </div>
               </>
             )}
@@ -114,19 +150,6 @@ const Navbar = () => {
                 )}
               </div>
             </div>
-          </div>
-        )}
-        
-        {/* Mobile Home/Login/Register Menu */}
-        {!isAuthenticated && (
-          <div className="md:hidden pb-4 border-t border-blue-300 pt-4">
-            <Link
-              to="/"
-              className="text-white hover:text-blue-200 font-semibold transition-colors flex items-center gap-2 mb-3"
-            >
-              <Home size={20} />
-              Home
-            </Link>
           </div>
         )}
       </div>
