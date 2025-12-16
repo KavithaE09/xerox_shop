@@ -331,9 +331,6 @@ body::before {
   100% { transform: rotate(360deg); }
 }
 
-/* ============================================
-   BACKGROUND PATTERNS
-   ============================================ */
 
 .bg-pattern {
   background-color: var(--primary-color);
